@@ -1,0 +1,54 @@
+import pygame
+
+class Player:
+    # State consts
+    IDLE_STATE = 0
+    MOVING_STATE = 1
+
+    WALK_SPEED = 3
+
+    DOWN = 0
+    UP = 1
+    LEFT = 2
+    RIGHT = 3
+
+    FRAME_SIZE = (100, 100)
+
+    # Variables
+    pos_x = 100
+    pos_y = 100
+
+    current_state = IDLE_STATE
+
+    # "Output"
+    screen_rect = None
+    # "Input"
+    frame_rect = None
+
+    spritesheet = None
+
+    def __init__(self):
+        self.spritesheet = pygame.image.load("farmer-big.png").convert_alpha()
+        self.frame_rect = pygame.Rect(0,0, self.FRAME_SIZE[0], self.FRAME_SIZE[1])
+        self.screen_rect = pygame.Rect(self.pos_x, self.pos_y, self.FRAME_SIZE[0], self.FRAME_SIZE[1])
+        self.screen_rect.center = (self.pos_x, self.pos_y)
+
+    def move(self, direction):
+        self.current_state = self.MOVING_STATE
+
+        if direction == self.DOWN:
+            self.pos_y += self.WALK_SPEED
+        if direction == self.UP:
+            self.pos_y -= self.WALK_SPEED
+        if direction == self.RIGHT:
+            self.pos_x += self.WALK_SPEED
+        if direction == self.LEFT:
+            self.pos_x -= self.WALK_SPEED
+
+        self.screen_rect.center = (self.pos_x, self.pos_y)
+
+    def stop_move(self):
+        pass
+
+    def draw(self, screen):
+        screen.blit(self.spritesheet, self.screen_rect, self.frame_rect)
