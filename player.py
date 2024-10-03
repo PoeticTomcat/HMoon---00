@@ -19,6 +19,7 @@ class Player:
     pos_y = 100
 
     current_state = IDLE_STATE
+    current_direction = DOWN
 
     # "Output"
     screen_rect = None
@@ -38,14 +39,19 @@ class Player:
 
         if direction == self.DOWN:
             self.pos_y += self.WALK_SPEED
+            self.current_direction = self.DOWN
         if direction == self.UP:
             self.pos_y -= self.WALK_SPEED
+            self.current_direction = self.UP
         if direction == self.RIGHT:
             self.pos_x += self.WALK_SPEED
+            self.current_direction = self.RIGHT
         if direction == self.LEFT:
             self.pos_x -= self.WALK_SPEED
+            self.current_direction = self.LEFT
 
         self.screen_rect.center = (self.pos_x, self.pos_y)
+        self.frame_rect.topleft = (0, self.FRAME_SIZE[1] * self.current_direction)
 
     def stop_move(self):
         pass
