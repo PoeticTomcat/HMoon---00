@@ -41,6 +41,9 @@ while run:
     player.stop_move()
   
 
+  # Update Code
+  player.update()
+
   # Quit Game
 
   for event in pygame.event.get():
@@ -49,7 +52,7 @@ while run:
 
 
   # Drawing Code
-  
+
   player.draw(screen)
 
   pygame.display.flip()
