@@ -23,6 +23,9 @@ while run:
   
   screen.fill((255,255,255))
 
+
+# Input Code
+
   key = pygame.key.get_pressed()
   if key[pygame.K_DOWN] == True:
     player.move(DOWN)
@@ -37,10 +40,16 @@ while run:
   key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False) : 
     player.stop_move()
   
+
+  # Quit Game
+
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       run = False
 
+
+  # Drawing Code
+  
   player.draw(screen)
 
   pygame.display.flip()

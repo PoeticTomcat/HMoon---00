@@ -28,11 +28,21 @@ class Player:
 
     spritesheet = None
 
+    current_frame = None
+
     def __init__(self):
         self.spritesheet = pygame.image.load("farmer-big.png").convert_alpha()
         self.frame_rect = pygame.Rect(0,0, self.FRAME_SIZE[0], self.FRAME_SIZE[1])
         self.screen_rect = pygame.Rect(self.pos_x, self.pos_y, self.FRAME_SIZE[0], self.FRAME_SIZE[1])
         self.screen_rect.center = (self.pos_x, self.pos_y)
+        self.set_frame(11)
+
+    def set_frame(self, frame):
+        self.current_frame = frame
+        cur_row = self.current_direction
+        cur_col = self.current_frame
+
+        self.frame_rect.topleft = (cur_col * self.FRAME_SIZE[0], cur_row * self.FRAME_SIZE[1])
 
     def move(self, direction):
         self.current_state = self.MOVING_STATE
