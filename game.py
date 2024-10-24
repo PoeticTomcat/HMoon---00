@@ -41,14 +41,26 @@ while run:
     player.stop_move()
   
 
-  # Update Code
-  player.update()
-
   # Quit Game
 
   for event in pygame.event.get():
+
+    #Running Mechanic
+    if event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_LSHIFT:
+        player.start_running()
+      if event.key == pygame.K_z:
+        player.use_tool()
+    if event.type == pygame. KEYUP:
+      if event.key == pygame.K_LSHIFT:
+        player.stop_running()
+
     if event.type == pygame.QUIT:
       run = False
+
+
+  # Update Code
+  player.update()
 
 
   # Drawing Code
