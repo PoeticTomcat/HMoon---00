@@ -18,11 +18,21 @@ class Player:
     FRAME_SIZE = (100, 100)
     TILE_SIZE = 32
 
+    #Tool constants
+    HOE = 0
+    WATERING_CAN = 1
+    TURNIP_SEED = 2
+
+    # Tool variables
+    cur_tool = 0
+    tools = [HOE, WATERING_CAN, TURNIP_SEED]
+
     # Animations
     IDLE_ANIMATION = [(0, 60)]
     WALK_ANIMATION = [(0, 10), (1, 10), (0, 10), (2, 10)]
     RUN_ANIMATION = [(0, 8), (3, 8), (0, 8), (4, 8)]
     TILLING_ANIMATION = [(12, 15), (13, 4), (14, 8), (15, 30)]
+    TOOL_SWITCH = [(11, 45)]
 
     TILLING_FRAME = 14
 
@@ -58,11 +68,13 @@ class Player:
     frame_rect = None
 
     spritesheet = None
+    tool_sheet = None
 
     def __init__(self, f, s):
         self.field = f
         self.screen = s
         self.spritesheet = pygame.image.load("farmer-big.png").convert_alpha()
+        self.tool_sheet = pygame.image.load("tools-big.png").convert_alpha()
         self.frame_rect = pygame.Rect(0,0, self.FRAME_SIZE[0], self.FRAME_SIZE[1])
         self.screen_rect = pygame.Rect(self.pos_x, self.pos_y, self.FRAME_SIZE[0], self.FRAME_SIZE[1])
         self.screen_rect.center = (self.pos_x, self.pos_y)
@@ -78,6 +90,7 @@ class Player:
     def next_frame(self):
         self.current_frame = self.current_animation[self.animation_index][0]
         self.current_duration = self.current_animation[self.animation_index][1]
+        self.on_frame()
 
     def set_animation(self, animation):
         self.current_animation = animation
@@ -181,7 +194,7 @@ class Player:
 
     def on_frame(self):
         if self.current_frame == self.TILLING_FRAME:
-            pass
+            self.field.till_tile(self.reticle_x, self.reticle_y)
 
     def update(self):
         self.update_animation()
