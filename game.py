@@ -15,8 +15,8 @@ RIGHT = 3
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
-player = Player()
-field = Field()
+field = Field(screen)
+player = Player(field, screen)
 
 run = True
 while run:
@@ -67,8 +67,8 @@ while run:
 
   # Drawing Code
 
-  field.draw(screen)
-  player.draw(screen)
+  field.draw()
+  player.draw()
 
   pygame.display.flip()
     
